@@ -1,4 +1,4 @@
-🔍Mini Google - Distributed Microservices Search Engine
+# 🔍Mini Google - Distributed Microservices Search Engine
 
 <p align="center">
   <img src="./assets/search-demo.gif" width="600">
@@ -80,6 +80,7 @@ To add new content to the search engine, send a POST request to the **Crawler Se
 * **Service Discovery**: Services communicate within a private Docker network using internal service names instead of hardcoded IP addresses.
 * **Real-time Highlighting**: Provides visual context in search results by highlighting the exact snippets where matches were found.
 * **Scalable Design**: Each component is containerized and can be scaled independently to handle increased load.
+
 
 
 
