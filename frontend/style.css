@@ -1,0 +1,47 @@
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background-color: #ffffff; }
+.search-container { width: 100%; max-width: 700px; margin: 80px auto 0; text-align: center; }
+
+/* Logo styling */
+.logo { font-size: 70px; margin-bottom: 30px; font-weight: 500; }
+.blue { color: #4285F4; } .red { color: #EA4335; } .yellow { color: #FBBC05; } .green { color: #34A853; }
+
+/* Search box styling */
+.search-box-wrapper { display: flex; gap: 10px; margin-bottom: 50px; }
+input {
+    flex: 1; padding: 15px 25px; border: 1px solid #dfe1e5; border-radius: 24px;
+    font-size: 16px; outline: none; transition: box-shadow 0.2s;
+}
+input:focus { box-shadow: 0 1px 6px rgba(32,33,36,0.28); }
+button {
+    padding: 10px 25px; border-radius: 24px; border: 1px solid #f8f9fa;
+    background: #f8f9fa; cursor: pointer; color: #3c4043; font-size: 14px;
+}
+button:hover { border: 1px solid #dadce0; box-shadow: 0 1px 1px rgba(0,0,0,0.1); }
+
+/* Results styling */
+.results-area { text-align: left; margin-top: 20px; }
+.result-item { margin-bottom: 28px; }
+.result-item a { color: #1a0dab; font-size: 20px; text-decoration: none; display: block; margin-bottom: 2px; }
+.result-item a:hover { text-decoration: underline; }
+.result-url { color: #202124; font-size: 14px; display: block; margin-bottom: 5px; }
+.result-snippet { color: #4d5156; font-size: 14px; line-height: 1.58; }
+
+/* Highlight styling - handles the <b> tags from Elasticsearch */
+b { background-color: #fff2ac; color: #000; font-weight: bold; padding: 0 2px; }
+
+.mini-text {
+    font-size: 0.7em;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.blue { color: #4285F4; }
+.red { color: #EA4335; }
+.yellow { color: #FBBC05; }
+.green { color: #34A853; }
+
+.logo {
+    font-size: 90px;
+    font-family: 'Product Sans', Arial, sans-serif;
+    font-weight: bold;
+}
