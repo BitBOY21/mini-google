@@ -7,16 +7,65 @@
 A fully functional, distributed search engine architecture built with **Spring Boot**, **Apache Kafka**, and **Elasticsearch**, all containerized using **Docker**. This project demonstrates a production-grade pipeline: from web crawling to real-time indexing and fuzzy search.
 
 ## 🏗 Architecture & Services
+```mermaid
+graph TD
+    %% Actors
+    User((User))
+    
+    %% Frontend
+    subgraph Client_Layer [Client Layer]
+        UI[Frontend UI - Vanilla JS/HTML5]
+    end
 
-The system is composed of four specialized microservices communicating over a private Docker network:
+    %% Microservices and Infrastructure
+    subgraph Docker_Compose_Environment [Docker Containerized Environment]
+        
+        subgraph Data_Collection [Data Collection & Ingestion]
+            Crawler[Crawler Service :8084]
+            Ingestion[Ingestion Service :8081]
+        end
 
-* **Crawler Service (Port 8084):** Fetches content from URLs using Jsoup and sends data to the Ingestion Service.
-* **Ingestion Service (Port 8081):** Receives web pages and streams them into a Kafka topic.
-* **Processing Service (Port 8082):** Consumes data from Kafka and indexes it into Elasticsearch.
-* **Search Service (Port 8083):** Provides a REST API for fuzzy searches and hit-highlighting.
+        subgraph Messaging_Stream [Async Messaging]
+            Kafka[(Apache Kafka)]
+        end
 
+        subgraph Storage_and_Indexing [Processing & Storage]
+            Processing[Processing Service :8082]
+            Elasticsearch[(Elasticsearch 7.17)]
+        end
 
+        subgraph Search_API [Search Layer]
+            Search[Search Service :8083]
+        end
 
+    end
+
+    %% Data Flow - Crawling
+    User -->|Enters URL| UI
+    UI -->|1. Request Crawl| Crawler
+    Crawler -->|2. Fetch Content| Web((Internet))
+    Web -->|HTML Content| Crawler
+    Crawler -->|3. Push Data| Ingestion
+    Ingestion -->|4. Stream Message| Kafka
+
+    %% Data Flow - Indexing
+    Kafka -->|5. Consume| Processing
+    Processing -->|6. Index Document| Elasticsearch
+
+    %% Data Flow - Searching
+    User -->|Enters Query| UI
+    UI -->|7. API Call| Search
+    Search -->|8. Fuzzy Search| Elasticsearch
+    Elasticsearch -->|9. Highlighted Results| Search
+    Search -->|10. JSON Response| UI
+    UI -->|Display Results| User
+
+    %% Styling
+    style Kafka fill:#f96,stroke:#333,stroke-width:2px
+    style Elasticsearch fill:#00bfb3,stroke:#333,stroke-width:2px,color:#fff
+    style Docker_Compose_Environment fill:#f5f5f5,stroke:#666,stroke-dasharray: 5 5
+    style UI fill:#fff,stroke:#333,stroke-width:2px
+```
 ## 🛠 Technology Stack
 
 * **Backend:** Java 17, Spring Boot 3.
@@ -80,6 +129,7 @@ To add new content to the search engine, send a POST request to the **Crawler Se
 * **Service Discovery**: Services communicate within a private Docker network using internal service names instead of hardcoded IP addresses.
 * **Real-time Highlighting**: Provides visual context in search results by highlighting the exact snippets where matches were found.
 * **Scalable Design**: Each component is containerized and can be scaled independently to handle increased load.
+
 
 
 
